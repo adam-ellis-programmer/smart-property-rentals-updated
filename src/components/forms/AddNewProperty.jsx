@@ -188,9 +188,10 @@ const AddNewProperty = () => {
   // prettier-gnore
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (checkDemoUser()) {
-      return
-    }
+    // if (checkDemoUser()) {
+    //   return
+    // }
+
     try {
       if (
         propertyType === '' ||

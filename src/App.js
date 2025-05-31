@@ -20,6 +20,7 @@ import GlobalAlert from './components/alerts/GlobalAlert'
 import MainAppAlert from './components/alerts/MainAppAlert'
 import { selectShowAlert } from './features/properties/propertiesSlice'
 import { useSelector } from 'react-redux'
+import DataSeeder from './seeder/DataSeeder'
 
 function App() {
   const showAlert = useSelector(selectShowAlert)
@@ -28,6 +29,8 @@ function App() {
     <div className='app-wrapper'>
       {showAlert && <MainAppAlert />}
       {/* custom alert for internet connectivity */}
+      {/* <DataSeeder /> */}
+
       <GlobalAlert />
       <Router>
         <Header />

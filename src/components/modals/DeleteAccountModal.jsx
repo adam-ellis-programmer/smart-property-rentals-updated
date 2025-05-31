@@ -19,8 +19,10 @@ import DeleteSpinner from '../loaders/DeleteSpinner'
 import { useSelector, useDispatch } from 'react-redux'
 
 import UseAuthCheck from '../../hooks/UseAuthCheck'
+import { useDemoUserCheck } from '../../hooks/useDemoUserCheck'
 
 const DeleteAccountModal = ({ setShowModal }) => {
+  const { isDemoUser, checkDemoUser } = useDemoUserCheck()
   const [isDeleting, setIsDeleting] = useState(false)
   const navigate = useNavigate()
   const { loggedInUser } = UseAuthCheck()
@@ -37,7 +39,10 @@ const DeleteAccountModal = ({ setShowModal }) => {
   // get message ids using doc.id
   const getAllMessages = async (userUID) => {
     const messageIDS = []
-    const q = query(collection(db, 'messages'), where('senderID', '==', userUID))
+    const q = query(
+      collection(db, 'messages'),
+      where('senderID', '==', userUID)
+    )
 
     const querySnapshot = await getDocs(q)
     querySnapshot.forEach((doc) => {
@@ -54,7 +59,10 @@ const DeleteAccountModal = ({ setShowModal }) => {
     const pathNames = []
     const listingIDS = []
 
-    const q = query(collection(db, 'listings'), where('propertyOwner', '==', userUID))
+    const q = query(
+      collection(db, 'listings'),
+      where('propertyOwner', '==', userUID)
+    )
 
     const querySnapshot = await getDocs(q)
     querySnapshot.forEach((doc) => {
@@ -108,6 +116,9 @@ const DeleteAccountModal = ({ setShowModal }) => {
 
   // filtered
   const handleDelete = async () => {
+    if (checkDemoUser()) {
+      return
+    }
     const auth = getAuth()
     const user = auth.currentUser
 
@@ -164,17 +175,17 @@ const DeleteAccountModal = ({ setShowModal }) => {
     }
   }
   return (
-    <div className="msg-delete-modal-wrap">
-      <div className="delete-modal-div ">
+    <div className='msg-delete-modal-wrap'>
+      <div className='delete-modal-div '>
         {isDeleting && <DeleteSpinner />}
-        <div className="delete-modal-body-header">
-          <button onClick={handleClose} className="close-delete-msg-modal-btn">
+        <div className='delete-modal-body-header'>
+          <button onClick={handleClose} className='close-delete-msg-modal-btn'>
             <FontAwesomeIcon icon={faCircleXmark} />
           </button>
         </div>
         <SectionHeader text={`delete your account?`} />
-        <div className="delete-modal-body-div">
-          <button onClick={handleDelete} className="delete-msg-btn">
+        <div className='delete-modal-body-div'>
+          <button onClick={handleDelete} className='delete-msg-btn'>
             delete
           </button>
         </div>

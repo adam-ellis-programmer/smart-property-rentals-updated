@@ -1,17 +1,28 @@
 import { useRef, useState } from 'react'
 import { db } from '../../firebase-config'
 import { getAuth, updateProfile } from 'firebase/auth'
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from 'firebase/storage'
 import { setLoginChange } from '../../features/properties/propertiesSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import { useDemoUserCheck } from '../../hooks/useDemoUserCheck'
 
 // step 1
 const UpdateProfileImg = ({ loggedInUser }) => {
+  const { isDemoUser, checkDemoUser } = useDemoUserCheck()
+
   const dispatch = useDispatch()
   const { signUpChange } = useSelector((state) => state.property)
   const [loading, setLoading] = useState(false)
   const fileInputRef = useRef(null)
   const handleUpdateClick = () => {
+    if (checkDemoUser()) {
+      return
+    }
     const inputRef = fileInputRef.current
     inputRef.click()
     console.log(inputRef)
@@ -61,7 +72,8 @@ const UpdateProfileImg = ({ loggedInUser }) => {
         'state_changed',
         (snapshot) => {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           console.log('Upload is ' + progress + '% done')
           switch (snapshot.state) {
             case 'paused':
@@ -102,14 +114,17 @@ const UpdateProfileImg = ({ loggedInUser }) => {
     })
   }
   return (
-    <button onClick={handleUpdateClick} className="delete-acc-btn acc-update-btn">
+    <button
+      onClick={handleUpdateClick}
+      className='delete-acc-btn acc-update-btn'
+    >
       {loading ? 'updating...' : 'change profile img'}
       <input
         onChange={(e) => handleFileChangeAndUpload(e)}
         ref={fileInputRef}
-        type="file"
-        name=""
-        id=""
+        type='file'
+        name=''
+        id=''
         hidden
       />
     </button>

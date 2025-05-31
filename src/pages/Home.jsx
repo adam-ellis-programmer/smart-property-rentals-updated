@@ -13,6 +13,7 @@ import PageLoader from '../components/loaders/PageLoader'
 import PageAlert from '../components/alerts/PageAlert'
 import { useDispatch } from 'react-redux'
 import { useDemoUserCheck } from '../hooks/useDemoUserCheck'
+import DataSeeder from '../seeder/DataSeeder'
 
 const Home = () => {
   // const { isDemoUser } = useDemoUserCheck()
