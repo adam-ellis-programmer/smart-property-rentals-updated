@@ -26,13 +26,13 @@ export const amenitiesArr = [
 
 export const propertyTypeArr = [
   { id: 0, name: 'choose property type' },
-  { id: 1, name: 'apartment' },
-  { id: 2, name: 'Condo' },
+  { id: 1, name: 'Apartment' },
   { id: 3, name: 'House' },
-  { id: 4, name: 'Cabin or Cottage' },
-  { id: 5, name: 'Room' },
-  { id: 6, name: 'Studio' },
-  { id: 7, name: 'Other' },
+  // { id: 2, name: 'Condo' },
+  // { id: 4, name: 'Cabin or Cottage' },
+  // { id: 5, name: 'Room' },
+  // { id: 6, name: 'Studio' },
+  // { id: 7, name: 'Other' },
 ]
 
 export const imgs = [{ id: 7, name: `./temp/images/properties/` }]
